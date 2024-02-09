@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native';
 import CheckBox from 'expo-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Appearance } from 'react-native';
 
 export default function Index() {
+    const colorScheme = Appearance.getColorScheme();
     const [task, setTask] = useState('');
     const [tasks, setTasks] = useState([]);
 
@@ -83,18 +85,19 @@ export default function Index() {
         <View
           style={{
             height: 1,
-            backgroundColor: 'black',
+            backgroundColor: colorScheme === 'dark' ? '#555555' : '#dddddd',
             width: "100%"
           }}
         />
       );
 
       return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: colorScheme === 'dark' ? '#121212' : '#ffffff' }]}>
           <View style={styles.inputContainer}>
             <TextInput
-              style={styles.input}
+              style={[styles.input, { borderColor: colorScheme === 'dark' ? '#555555' : '#aaaaaa', color: colorScheme === 'dark' ? '#ffffff' : '#000000' }]}
               placeholder="Ajouter une tâche"
+              placeholderTextColor={colorScheme === 'dark' ? '#ffffff' : '#666666'}
               value={task}
               onChangeText={(text) => setTask(text)}
             />
@@ -115,11 +118,12 @@ export default function Index() {
                     flex: 1,
                     marginLeft: 8,
                     textDecorationLine: item.completed ? 'line-through' : 'none',
+                    color: colorScheme === 'dark' ? '#ffffff' : '#000000'
                   }}
                 >
                   {item.text}
                 </Text>
-                <Ionicons name="trash-outline" size={32} onPress={() => removeTask(item.id)} />
+                <Ionicons name="trash-outline" size={32} color={colorScheme === 'dark' ? '#ffffff' : '#000000'} onPress={() => removeTask(item.id)} />
               </View>
             )}
           />

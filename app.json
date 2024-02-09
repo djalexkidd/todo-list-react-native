@@ -8,6 +8,7 @@
       "expo-router"
     ],
     "name": "todo-list",
-    "slug": "todo-list"
+    "slug": "todo-list",
+    "userInterfaceStyle": "automatic"
   }
 }
